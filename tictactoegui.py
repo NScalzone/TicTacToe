@@ -1,5 +1,14 @@
 import PySimpleGUI as sg
+"""
+This program uses the same logic as my basic terminal version,
+but adds a GUI interface for the board. I used a video by "The CS Classroom"
+on YouTube to help me build the GUI. The biggest difference between my code and theirs
+is the function that checks for wins. In mine, I determined it was
+only necessary to check if the most recent move resulted in a win, rather than analyzing the whole
+board after every move.
 
+Video: https://www.youtube.com/watch?v=q7Q1EQ1dZdM&t=809s&ab_channel=TheCSClassroom
+"""
 sg.theme('DarkTanBlue')
 
 board, player = {}, 0
@@ -38,6 +47,7 @@ def is_win(player,row, column, board):
 
 layout = [[sg.Text('X goes first!', key='welcome message')]]
 
+# Create the game board GUI
 for row in range(3):
     newrow = []
     for column in range(3):
@@ -46,14 +56,20 @@ for row in range(3):
 layout.append([sg.Button('Play Again'), sg.Button('Cancel')])
 
 window = sg.Window('TicTacToe', layout, use_default_focus=False)
-        
+
+# Turn and game over help drive the gameplay loop, and determine which
+# player's turn it is.
 turn = 1
 game_over = False
 
 while not game_over:
     event, values = window.read()
+    
+    # If the user closes the window, end the program
     if event == sg.WIN_CLOSED or event == 'Cancel':
         break
+    
+    # When Play Again is selected, reset the game to the beginning
     if event == 'Play Again':
         board = {}
         for row in range(3):
@@ -62,6 +78,7 @@ while not game_over:
         turn = 1
         game_board = [[' ',' ',' '],[' ',' ',' '],[' ',' ',' ']]
                 
+    # Gameplay loop
     elif event not in board:
         
         if turn % 2 != 0:

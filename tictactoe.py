@@ -1,4 +1,9 @@
-
+"""
+This program creates a tic tac toe game that can be played
+in the terminal. I started with this to figure out the logic
+of the game before adding in the GUI elements, which are in
+a seperate file.
+"""
 game_board = [[' ',' ',' '],[' ',' ',' '],[' ',' ',' ']]
 
 def display_board(board):
@@ -39,7 +44,7 @@ display_board(game_board)
 turn = 1
 game_over = False
 
-while game_over == False:
+while not game_over:
     if turn % 2 != 0:
         player = 'X'
     else:
